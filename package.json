@@ -1,0 +1,9 @@
+{
+  "name": "traph",
+  "version": "0.1.0",
+  "description": "Transformation graph for JS Objects, a powerful and declarative way to remap one Object in another.",
+  "main": "index.js",
+  "repository": "git@github.com:caesarsol/traph.git",
+  "author": "caesarsol <smilemachine@gmail.com>",
+  "license": "GPLv3"
+}
