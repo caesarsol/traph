@@ -2,8 +2,17 @@
   "name": "traph",
   "version": "0.1.0",
   "description": "Transformation graph for JS Objects, a powerful and declarative way to remap one Object in another.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "git@github.com:caesarsol/traph.git",
   "author": "caesarsol <smilemachine@gmail.com>",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "babel index.js --presets latest -d dist/",
+    "prepublish": "npm build"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.22.2",
+    "babel-preset-latest": "^6.22.0"
+  }
 }

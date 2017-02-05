@@ -55,7 +55,7 @@ function materialize(t) {
   return t
 }
 
-function traph(o) {
+export default function traph(o) {
   const transform = (i) => materialize(gettifize(o, i))
   transform.lazy = (i) => gettifize(o, i)
   return transform
