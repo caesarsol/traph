@@ -125,6 +125,7 @@ This guarantees to execute the minimum of necessary steps to get the result.
  + Validation of outputs, when called fron inside the prop function
  + Better validation of inputs, if needed, maybe using JSON schemas
  + Get near the extensibility and composability of `plumbing/graph`:
+ 
    > We can also have higher-order functions on Graphs to wrap the behavior on each step.
    > For instance, we can automatically profile each sub-function in 'stats' to see how long it takes to execute.
 
