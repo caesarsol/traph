@@ -27,36 +27,51 @@ function checkerProxy(data) {
   })
 }
 
-/**
- * Gettifize: getter + memoize
- * Transforms an Object of functions (input,output) => outputValue
- * in an Object of getters with closured 'input' and gettifized 'output'.
- */
-function gettifize(obj, data) {
-  const dataProxy = checkerProxy(data)
+const DATA_ATTRIBUTE = Symbol('TRAPH_DATA_ATTRIBUTE')
+
+function buildGettifizeProto(obj) {
   const protoDefinitions = mapValues(obj, (k, fn) => ({
     enumerable: true,
     get() {
-      const value = fn(dataProxy, this)
+      const input = this[DATA_ATTRIBUTE]
+      const output = this
+      const value = fn(input, output)
       Object.defineProperty(this, k, { value, enumerable: true })
       return value
     },
   }))
   const proto = Object.defineProperties({}, protoDefinitions)
-  const gettifized = Object.create(proto)
-  return gettifized
+  return proto
+}
+
+function buildGettifizeBinder(proto) {
+  return function bindData(input) {
+    const inputProxy = checkerProxy(input)
+    const output = Object.create(proto)
+    Object.defineProperty(output, DATA_ATTRIBUTE, { value: inputProxy })
+    return output
+  }
+}
+
+/**
+ * Gettifize: getter + memoize
+ * Transforms an Object of functions of the form (input,output) => outputValue
+ * in an Object of auto-memoizing getters deriving from input && output.
+ */
+function gettifize(obj) {
+  const proto = buildGettifizeProto(obj)
+  const binder = buildGettifizeBinder(proto)
+  return binder
 }
 
 function materialize(t) {
-  const keys = Object.keys(Object.getPrototypeOf(t))
-  keys.forEach(k => t[k])
-  // Alternative:
-  // for (let k in t) { t[k] }
+  for (let k in t) { t[k] }
   return t
 }
 
 export default function traph(o) {
-  const transform = (i) => materialize(gettifize(o, i))
-  transform.lazy = (i) => gettifize(o, i)
+  const dataBinder = gettifize(o)
+  const transform = (i) => materialize(dataBinder(i))
+  transform.lazy = (i) => dataBinder(i)
   return transform
 }
