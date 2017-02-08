@@ -29,8 +29,8 @@ function checkerProxy(data) {
 
 const DATA_ATTRIBUTE = Symbol('TRAPH_DATA_ATTRIBUTE')
 
-function buildGettifizeProto(obj) {
-  const protoDefinitions = mapValues(obj, (k, fn) => ({
+function buildGettifizeProto(outputTemplate) {
+  const protoDefinitions = mapValues(outputTemplate, (k, fn) => ({
     enumerable: true,
     get() {
       const input = this[DATA_ATTRIBUTE]
@@ -44,7 +44,7 @@ function buildGettifizeProto(obj) {
   return proto
 }
 
-function buildGettifizeBinder(proto) {
+function buildGettifizeDataBinder(proto) {
   return function bindData(input) {
     const inputProxy = checkerProxy(input)
     const output = Object.create(proto)
@@ -58,9 +58,9 @@ function buildGettifizeBinder(proto) {
  * Transforms an Object of functions of the form (input,output) => outputValue
  * in an Object of auto-memoizing getters deriving from input && output.
  */
-function gettifize(obj) {
-  const proto = buildGettifizeProto(obj)
-  const binder = buildGettifizeBinder(proto)
+function gettifize(outputTemplate) {
+  const proto = buildGettifizeProto(outputTemplate)
+  const binder = buildGettifizeDataBinder(proto)
   return binder
 }
 
@@ -70,8 +70,8 @@ function materialize(t) {
 }
 
 export default function traph(o) {
-  const dataBinder = gettifize(o)
-  const transform = (i) => materialize(dataBinder(i))
-  transform.lazy = (i) => dataBinder(i)
+  const gettifizeDataBinder = gettifize(o)
+  const transform = (i) => materialize(gettifizeDataBinder(i))
+  transform.lazy = (i) => gettifizeDataBinder(i)
   return transform
 }
