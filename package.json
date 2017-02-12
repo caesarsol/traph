@@ -9,10 +9,12 @@
   "scripts": {
     "build": "babel index.js --presets latest -d dist/",
     "lint": "eslint index.js",
-    "test": "npm lint",
-    "prepublish": "npm test && npm build"
+    "test:watch": "ava --watch",
+    "test": "npm run lint && ava",
+    "preversion": "npm test && npm build"
   },
   "devDependencies": {
+    "ava": "^0.18.1",
     "babel": "^6.5.2",
     "babel-cli": "^6.22.2",
     "babel-preset-latest": "^6.22.0"
