@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "ava"
+  ],
+  "extends": [
+    "standard",
+    "plugin:ava/recommended",
+  ],
+  "rules": {
+    "comma-dangle": ["warn", "always-multiline"]
+  },
+}

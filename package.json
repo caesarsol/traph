@@ -8,11 +8,22 @@
   "license": "GPL-3.0",
   "scripts": {
     "build": "babel index.js --presets latest -d dist/",
-    "prepublish": "npm build"
+    "lint": "eslint index.js",
+    "test:watch": "ava --watch",
+    "test": "npm run lint && ava",
+    "preversion": "npm test && npm build"
   },
   "devDependencies": {
+    "ava": "^0.18.1",
     "babel": "^6.5.2",
     "babel-cli": "^6.22.2",
     "babel-preset-latest": "^6.22.0"
+  },
+  "dependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-standard": "7.0.0-beta.0",
+    "eslint-plugin-ava": "^4.1.0",
+    "eslint-plugin-promise": "^3.4.1",
+    "eslint-plugin-standard": "^2.0.1"
   }
 }
