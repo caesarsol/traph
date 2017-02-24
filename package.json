@@ -11,7 +11,7 @@
     "lint": "eslint index.js",
     "test:watch": "ava --watch",
     "test": "npm run lint && ava",
-    "preversion": "npm test && npm build"
+    "preversion": "npm build && npm test"
   },
   "devDependencies": {
     "ava": "^0.18.1",
