@@ -1,5 +1,5 @@
 import test from 'ava'
-import traph from '.'
+import traph from './index'
 
 /**
  * Object's own enumerable keys, without ancestors', sorted.

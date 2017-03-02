@@ -7,11 +7,15 @@
   "author": "caesarsol <smilemachine@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel index.js --presets latest -d dist/",
+    "build": "babel index.js -d dist/",
     "lint": "eslint index.js",
     "test:watch": "ava --watch",
     "test": "npm run lint && ava",
     "preversion": "npm build && npm test"
+  },
+  "ava": {
+    "require": ["babel-register"],
+    "presets": "inherit"
   },
   "devDependencies": {
     "ava": "^0.18.1",
