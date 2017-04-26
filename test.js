@@ -79,3 +79,17 @@ test('traph lazy', t => {
 
   t.deepEqual(objectOwnKeys(output), objectAllKeys(output))
 })
+
+test('traph doesn\'t use Proxy if not available', t => {
+  const origProxy = global.Proxy
+  delete global.Proxy
+
+  const transform = traph({
+    fullName: i => `${i.first} ${i.xxx}`,
+  })
+  const output = transform.lazy({ first: 'Richard', last: 'Feynman' })
+
+  t.true(output.fullName === 'Richard undefined')
+
+  global.Proxy = origProxy
+})

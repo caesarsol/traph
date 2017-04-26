@@ -7,13 +7,20 @@ function mapValues (obj, fn) {
   }, {})
 }
 
+let didWarn = []
+function warnOnce (message, ...args) {
+  if (didWarn.includes(message)) return
+  console.warn(message, ...args)
+  didWarn.push(message)
+}
+
 /**
  * A proxy for an Object that checks for existence of the keys,
  * and throws an error in case.
  */
 function checkerProxy (data) {
-  if (Proxy === undefined) {
-    console.warn("Can't validate input data Object, because we need Proxy!")
+  if (typeof Proxy === 'undefined') {
+    warnOnce("traph: can't validate input data Object, because Proxy global is not defined.")
     return data
   }
   return new Proxy(data, {
