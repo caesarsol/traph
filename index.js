@@ -54,7 +54,7 @@ function buildGettifizeProto (outputTemplate) {
 function buildGettifizeDataBinder (proto) {
   return function bindData (input) {
     // Use a Proxy to check for unexistant keys, only in development
-    const inputProxy = process.env.NODE_ENV !== 'development' ? checkerProxy(input) : input
+    const inputProxy = process.env.NODE_ENV === 'development' ? checkerProxy(input) : input
     const output = Object.create(proto)
     Object.defineProperty(output, DATA_ATTRIBUTE, { value: inputProxy })
     return output
