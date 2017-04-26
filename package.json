@@ -1,6 +1,6 @@
 {
   "name": "traph",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Transformation graph for JS Objects, a powerful and declarative way to remap one Object in another.",
   "main": "dist/index.js",
   "repository": "git@github.com:caesarsol/traph.git",
@@ -14,7 +14,9 @@
     "preversion": "npm build && npm test"
   },
   "ava": {
-    "require": ["babel-register"],
+    "require": [
+      "babel-register"
+    ],
     "presets": "inherit"
   },
   "devDependencies": {
