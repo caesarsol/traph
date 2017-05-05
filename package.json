@@ -11,7 +11,7 @@
     "lint": "eslint index.js",
     "test:watch": "ava --watch",
     "test": "npm run lint && ava",
-    "preversion": "npm build && npm test"
+    "prepublish": "npm build && npm test"
   },
   "ava": {
     "require": [
