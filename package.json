@@ -2,7 +2,6 @@
   "name": "traph",
   "version": "0.3.2",
   "description": "Transformation graph for JS Objects, a powerful and declarative way to remap one Object in another.",
-  "main": "dist/index.js",
   "repository": "git@github.com:caesarsol/traph.git",
   "author": "caesarsol <smilemachine@gmail.com>",
   "license": "MIT",
@@ -11,8 +10,12 @@
     "lint": "eslint index.js",
     "test:watch": "ava --watch",
     "test": "npm run lint && ava",
-    "prepublish": "npm build && npm test"
+    "prepublish": "npm run build && npm test"
   },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "ava": {
     "require": [
       "babel-register"
