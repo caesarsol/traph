@@ -1,4 +1,4 @@
-type TraphConfig<I,O> = {
+export type TraphConfig<I,O> = {
   [K in keyof O]: (i: I, o: O) => O[K]
 }
 
