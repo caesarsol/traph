@@ -14,8 +14,10 @@
   },
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
+  "type": "index.d.ts",
   "ava": {
     "require": [
       "babel-register"
